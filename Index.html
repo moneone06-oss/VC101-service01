@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>李東洋 Tong-Yang Li | AI 科技專家・奇邑科技副總經理</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f5ff',
+                            100: '#e0ebff',
+                            400: '#56C0E0', // 淺藍色
+                            500: '#0066CC', // 主色：ITRI Blue
+                            600: '#0052A3',
+                            700: '#003d7a',
+                        },
+                        secondary: {
+                            400: '#75775', // 灰色
+                            500: '#3CB371', // 綠色
+                            600: '#2d8659',
+                        },
+                        accent: {
+                            400: '#FFD540', // 黃色
+                            500: '#F39822', // 橙色
+                            600: '#d67c1a',
+                        },
+                        success: {
+                            500: '#00CCC8', // 青色
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- AOS (Animate on Scroll) CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- GSAP (GreenSock Animation Platform) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Typed.js -->
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+
+    <style>
+        /* 基礎優化與 White Futurism 磨砂玻璃效果 */
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
+
+        /* 隱藏滾動條但保持滾動功能 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* 頂級玻璃擬態 */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(0, 102, 204, 0.2);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -15px rgba(0, 102, 204, 0.1);
+        }
+
+        /* 柔和漸層光暈網格 */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.45;
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: multiply;
+        }
+
+        /* 導覽列活動指示 */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(90deg, #0066CC, #3CB371);
+            transition: width 0.3s ease;
+        }
+        .nav-link.active::after, .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* 高端動態網格背景 */
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(0, 102, 204, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 102, 204, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* 按鈕奢華微光效 */
+        .btn-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shimmer::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 30%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.25);
+            transform: rotate(30deg);
+            transition: none;
+        }
+        .btn-shimmer:hover::after {
+            left: 130%;
+            transition: all 0.8s ease-in-out;
+        }
+    </style>
+</head>
+<body class="grid-bg min-h-screen relative font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- 全局背景動態網格與漸層光暈 -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <!-- 頂級漸層光暈 (NVIDIA / Stripe 風格) -->
+        <div class="glow-orb bg-brand-100 w-[600px] h-[600px] -top-40 -left-40"></div>
+        <div class="glow-orb bg-secondary-500 w-[500px] h-[500px] top-[30%] -right-20 opacity-[0.15]"></div>
+        <div class="glow-orb bg-brand-500 w-[700px] h-[700px] bottom-[-200px] left-[20%] opacity-[0.1]"></div>
+    </div>
+
+    <!-- Canvas 白色科技粒子系統與資料流 -->
+    <canvas id="particles-canvas" class="fixed inset-0 pointer-events-none z-10 opacity-70"></canvas>
+
+    <!-- 頂部導覽列 (Fixed Header) -->
+    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 glass-panel py-4" id="main-nav">
+        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+            <!-- Logo / Brand 識別 -->
+            <a href="#home" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-500 to-secondary-500 flex items-center justify-center text-white shadow-md shadow-brand-500/10 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-brain-circuit text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-lg font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">李東洋</span>
+                    <span class="block text-[10px] text-slate-400 tracking-widest uppercase font-medium">AI Brand Expert</span>
+                </div>
+            </a>
+
+            <!-- 桌面版選單 -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                <a href="#home" class="nav-link active py-2 transition-colors hover:text-brand-500">首頁</a>
+                <a href="#about" class="nav-link py-2 transition-colors hover:text-brand-500">關於我</a>
+                <a href="#solutions" class="nav-link py-2 transition-colors hover:text-brand-500">解決方案</a>
+                <a href="#cases" class="nav-link py-2 transition-colors hover:text-brand-500">成功案例</a>
+                <a href="#blog" class="nav-link py-2 transition-colors hover:text-brand-500">科技趨勢</a>
+                <a href="#news" class="nav-link py-2 transition-colors hover:text-brand-500">AI情報局</a>
+            </div>
+
+            <!-- 桌面版 CTA -->
+            <div class="hidden md:block">
+                <a href="https://calendar.app.google/rjwe3RV3GSw3FB1G7" target="_blank" class="btn-shimmer relative px-5 py-2.5 rounded-full bg-slate-950 text-white text-xs font-semibold tracking-wider hover:bg-slate-800 transition-all duration-300 shadow-md flex items-center gap-2">
+                    <span>預約顧問諮詢</span>
+                    <i class="fa-solid fa-arrow-right-long text-[10px]"></i>
+                </a>
+            </div>
+
+            <!-- 手機版漢堡選單按鈕 -->
+            <button class="md:hidden flex flex-col justify-between w-6 h-4 text-slate-800 focus:outline-none" id="mobile-menu-btn" aria-label="Toggle Menu">
+                <span class="w-full h-0.5 bg-slate-800 transition-all duration-300" id="burger-top"></span>
+                <span class="w-full h-0.5 bg-slate-800 transition-all duration-300" id="burger-mid"></span>
+                <span class="w-full h-0.5 bg-slate-800 transition-all duration-300" id="burger-bottom"></span>
+            </button>
+        </div>
+
+        <!-- 手機版隱藏選單 -->
+        <div class="hidden md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-lg border-b border-slate-100 shadow-lg flex flex-col px-6 py-6 space-y-4" id="mobile-menu">
+            <a href="#home" class="mobile-nav-link text-slate-800 font-medium text-lg border-b border-slate-50 pb-2">首頁</a>
+            <a href="#about" class="mobile-nav-link text-slate-800 font-medium text-lg border-b border-slate-50 pb-2">關於我</a>
+            <a href="#solutions" class="mobile-nav-link text-slate-800 font-medium text-lg border-b border-slate-50 pb-2">解決方案</a>
+            <a href="#cases" class="mobile-nav-link text-slate-800 font-medium text-lg border-b border-slate-50 pb-2">成功案例</a>
+            <a href="#blog" class="mobile-nav-link text-slate-800 font-medium text-lg border-b border-slate-50 pb-2">科技趨勢</a>
+            <a href="#news" class="mobile-nav-link text-slate-800 font-medium text-lg border-b border-slate-50 pb-2">AI情報局</a>
+            <a href="https://calendar.app.google/rjwe3RV3GSw3FB1G7" target="_blank" class="w-full text-center py-3 rounded-xl bg-gradient-to-r from-brand-500 to-secondary-500 text-white font-medium text-sm">立即預約顧問諮詢</a>
+        </div>
+    </nav>
+
+    <!-- ==================== 首頁 HERO SECTION ==================== -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-28 pb-16 overflow-hidden z-20">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+            
+            <!-- 左側品牌主張 (Brand Statement) -->
+            <div class="lg:col-span-7 flex flex-col space-y-8 text-left" data-aos="fade-right" data-aos-duration="1200">
+                <div class="inline-flex items-center space-x-2 bg-brand-50/80 border border-brand-100 px-3.5 py-1.5 rounded-full text-xs font-semibold text-brand-600 tracking-wide w-fit">
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                    </span>
+                    <span>AI 科技先鋒 & 產業數位化架構導師</span>
+                </div>
+
+                <div class="space-y-4">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-tight">
+                        未來，已至。<br>
+                        <span class="bg-gradient-to-r from-brand-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent" id="typed-text"></span>
+                    </h1>
+                </div>
+
+                <p class="text-lg text-slate-500 leading-relaxed max-w-2xl">
+                    結合 AI 應用、智慧機器人與算力基礎建設，協助企業完成數位化、智慧化與 AI 化轉型，打造具競爭力的未來營運模式。讓技術服務實體經濟，落地變現。
+                </p>
+
+                <!-- CTA 控制區 -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+                    <a href="https://calendar.app.google/rjwe3RV3GSw3FB1G7" target="_blank" class="btn-shimmer flex items-center justify-center px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-500 to-secondary-500 text-white font-semibold shadow-lg shadow-brand-500/20 hover:scale-[1.02] transition-all">
+                        <i class="fa-regular fa-calendar-check mr-2.5"></i>
+                        <span>立即預約顧問諮詢</span>
+                    </a>
+                    <a href="#solutions" class="flex items-center justify-center px-8 py-4 rounded-2xl border border-slate-200 bg-white/60 text-slate-700 font-semibold hover:bg-slate-50 transition-all">
+                        <span>查看解決方案</span>
+                        <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- 認證與合作品牌標誌列 (Minimalist gray logos) -->
+                <div class="pt-8 border-t border-slate-200/60">
+                    <p class="text-[11px] font-bold tracking-widest text-slate-400 uppercase mb-4">企業級深度實踐背景</p>
+                    <div class="flex flex-wrap gap-y-3 gap-x-8 items-center text-slate-400 font-semibold text-sm">
+                        <span class="hover:text-slate-600 transition-colors">工研院 ITRI</span>
+                        <span class="hover:text-slate-600 transition-colors">ASUS 華碩</span>
+                        <span class="hover:text-slate-600 transition-colors">PEGATRON 和碩</span>
+                        <span class="hover:text-slate-600 transition-colors">EGISTEC 神盾</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右側 3D AI 科技視覺圖 -->
+            <div class="lg:col-span-5 relative flex justify-center items-center" data-aos="fade-left" data-aos-duration="1200">
+                <div class="relative w-full max-w-[450px] aspect-square">
+                    <!-- 高級動態網格球 (CSS 動畫繪製) -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-100 to-secondary-100 rounded-full blur-3xl opacity-40 animate-pulse"></div>
+                    
+                    <!-- 互動 3D 擬態圖（透過 SVG 優雅呈現 AI 伺服器與 Robot 架構） -->
+                    <svg class="w-full h-full relative z-10 select-none animate-[float_6s_ease-in-out_infinite]" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <style>
+                            @keyframes float {
+                                0%, 100% { transform: translateY(0px) rotate(0deg); }
+                                50% { transform: translateY(-15px) rotate(2deg); }
+                            }
+                            .pulse-line { stroke-dasharray: 10, 10; animation: dash 30s linear infinite; }
+                            @keyframes dash { to { stroke-dashoffset: -1000; } }
+                        </style>
+                        <!-- 底座網格 -->
+                        <ellipse cx="250" cy="400" rx="180" ry="40" fill="url(#gridGrad)" opacity="0.4"/>
+                        <!-- 數據流軌跡 -->
+                        <path d="M 250 50 C 100 150, 100 350, 250 400" stroke="url(#lineGrad1)" stroke-width="2" fill="none" class="pulse-line"/>
+                        <path d="M 250 50 C 400 150, 400 350, 250 400" stroke="url(#lineGrad2)" stroke-width="2" fill="none" class="pulse-line"/>
+                        
+                        <!-- AI 算力晶片 / 核心元件 -->
+                        <g transform="translate(150, 150)">
+                            <!-- 3D 浮空晶片立方體 -->
+                            <polygon points="100,20 180,60 100,100 20,60" fill="url(#cubeTop)" stroke="#fff" stroke-width="1.5"/>
+                            <polygon points="20,60 100,100 100,180 20,140" fill="url(#cubeLeft)" stroke="#fff" stroke-width="1.5"/>
+                            <polygon points="100,100 180,60 180,140 100,180" fill="url(#cubeRight)" stroke="#fff" stroke-width="1.5"/>
+                            
+                            <!-- 晶片發光紋路 -->
+                            <line x1="100" y1="40" x2="60" y2="60" stroke="#F39822" stroke-width="2" opacity="0.8"/>
+                            <line x1="100" y1="40" x2="140" y2="60" stroke="#F39822" stroke-width="2" opacity="0.8"/>
+                            <circle cx="100" cy="40" r="4" fill="#F39822"/>
+                        </g>
+
+                        <!-- AI 機器人外廓符號 -->
+                        <circle cx="250" cy="110" r="30" fill="url(#headGrad)" stroke="#0066CC" stroke-width="2"/>
+                        <rect x="235" y="105" width="30" height="8" rx="4" fill="#F39822"/>
+                        <!-- 衛星環繞 -->
+                        <circle cx="140" cy="210" r="12" fill="#3CB371" opacity="0.8"/>
+                        <circle cx="360" cy="240" r="8" fill="#0066CC" opacity="0.8"/>
+
+                        <!-- 定義漸層 -->
+                        <defs>
+                            <radialGradient id="gridGrad" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" transform="translate(250 400) rotate(90) scale(40 180)">
+                                <stop stop-color="#0066CC" stop-opacity="0.3"/>
+                                <stop offset="1" stop-color="#0066CC" stop-opacity="0"/>
+                            </radialGradient>
+                            <linearGradient id="lineGrad1" x1="250" y1="50" x2="250" y2="400">
+                                <stop offset="0%" stop-color="#0066CC"/>
+                                <stop offset="100%" stop-color="#3CB371"/>
+                            </linearGradient>
+                            <linearGradient id="lineGrad2" x1="250" y1="50" x2="250" y2="400">
+                                <stop offset="0%" stop-color="#F39822"/>
+                                <stop offset="100%" stop-color="#0066CC"/>
+                            </linearGradient>
+                            <linearGradient id="cubeTop" x1="20" y1="60" x2="180" y2="60">
+                                <stop offset="0%" stop-color="#ffffff"/>
+                                <stop offset="100%" stop-color="#dbeafe"/>
+                            </linearGradient>
+                            <linearGradient id="cubeLeft" x1="20" y1="100" x2="100" y2="180">
+                                <stop offset="0%" stop-color="#3b82f6"/>
+                                <stop offset="100%" stop-color="#0052A3"/>
+                            </linearGradient>
+                            <linearGradient id="cubeRight" x1="100" y1="100" x2="180" y2="180">
+                                <stop offset="0%" stop-color="#8b5cf6"/>
+                                <stop offset="100%" stop-color="#6d28d9"/>
+                            </linearGradient>
+                            <linearGradient id="headGrad" x1="220" y1="80" x2="280" y2="140">
+                                <stop offset="0%" stop-color="#ffffff"/>
+                                <stop offset="100%" stop-color="#eff6ff"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+
+                    <!-- 背後漂浮的數據標籤 -->
+                    <div class="absolute -top-4 -right-4 glass-card px-4 py-2.5 rounded-2xl flex items-center space-x-2 text-xs font-semibold text-slate-800">
+                        <i class="fa-solid fa-server text-brand-500"></i>
+                        <span>AI GPU Clusters</span>
+                    </div>
+                    <div class="absolute -bottom-2 -left-6 glass-card px-4 py-2.5 rounded-2xl flex items-center space-x-2 text-xs font-semibold text-slate-800">
+                        <i class="fa-solid fa-robot text-accent-500"></i>
+                        <span>Service Robots Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 關鍵數據里程碑 (Key Statistics) ==================== -->
+    <section class="py-12 relative z-20 border-y border-slate-200/50 bg-white/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center md:text-left flex flex-col space-y-1.5" data-aos="fade-up" data-aos-delay="100">
+                    <span class="text-xs font-bold tracking-widest text-slate-400 uppercase">產業耕耘經驗</span>
+                    <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">20+ <span class="text-brand-500 text-2xl font-semibold">年</span></span>
+                    <span class="text-xs text-slate-500">跨足工研院、華碩、神盾等集團</span>
+                </div>
+                <div class="text-center md:text-left flex flex-col space-y-1.5" data-aos="fade-up" data-aos-delay="200">
+                    <span class="text-xs font-bold tracking-widest text-slate-400 uppercase">落地大型專案</span>
+                    <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">100+ <span class="text-brand-500 text-2xl font-semibold">案</span></span>
+                    <span class="text-xs text-slate-500">智慧製造、物聯網及伺服器集群</span>
+                </div>
+                <div class="text-center md:text-left flex flex-col space-y-1.5" data-aos="fade-up" data-aos-delay="300">
+                    <span class="text-xs font-bold tracking-widest text-slate-400 uppercase">智慧物聯裝置部署</span>
+                    <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">50,000+ <span class="text-brand-500 text-2xl font-semibold">台</span></span>
+                    <span class="text-xs text-slate-500">全台大型園區、社區及零售場域</span>
+                </div>
+                <div class="text-center md:text-left flex flex-col space-y-1.5" data-aos="fade-up" data-aos-delay="400">
+                    <span class="text-xs font-bold tracking-widest text-slate-400 uppercase">AI 營運效能提升</span>
+                    <span class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">45% <span class="text-brand-500 text-2xl font-semibold">↑</span></span>
+                    <span class="text-xs text-slate-500">協助各型態企業大幅優化結構</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 關於我 ABOUT ==================== -->
+    <section id="about" class="py-24 relative z-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                
+                <!-- 左側：個人品牌照區 (Premium Executive Profile Accent) -->
+                <div class="lg:col-span-5 flex flex-col items-center" data-aos="fade-right">
+                    <div class="relative w-full max-w-[360px] aspect-[4/5] rounded-3xl overflow-hidden glass-panel p-3">
+                        <!-- 人物照區域。我們使用高雅的插圖/剪影佔位，突顯專業感 -->
+                        <div class="w-full h-full rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 border border-slate-200 flex flex-col items-center justify-center relative overflow-hidden">
+                            <!-- 科技背景網格 -->
+                            <div class="absolute inset-0 opacity-15 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80')"></div>
+                            
+                            <!-- 經典科技男士插畫 / 剪影 placeholder -->
+                            <i class="fa-solid fa-user-tie text-7xl text-slate-400 relative z-10 mb-4"></i>
+                            <div class="text-center relative z-10">
+                                <h3 class="text-xl font-bold text-slate-800">李東洋</h3>
+                                <p class="text-xs text-slate-500 mt-1">奇邑科技 ｜ 副總經理</p>
+                            </div>
+                            
+                            <!-- 水印裝飾 -->
+                            <div class="absolute bottom-4 text-[10px] font-mono text-slate-300 tracking-widest uppercase">Tong-Yang Li</div>
+                        </div>
+                    </div>
+
+                    <!-- 核心價值小卡片 -->
+                    <div class="mt-8 grid grid-cols-2 gap-4 w-full max-w-[360px]">
+                        <div class="glass-card p-4 rounded-2xl text-center">
+                            <i class="fa-solid fa-compass-drafting text-brand-500 text-lg mb-2"></i>
+                            <h4 class="text-sm font-bold text-slate-800">務實創新</h4>
+                            <p class="text-[11px] text-slate-400 mt-1">不追求浮誇，只做真正能落地商用的技術。</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-2xl text-center">
+                            <i class="fa-solid fa-shield-halved text-secondary-500 text-lg mb-2"></i>
+                            <h4 class="text-sm font-bold text-slate-800">極致信任</h4>
+                            <p class="text-[11px] text-slate-400 mt-1">以超過 20 年的堅實履歷為您的企業背書。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右側：介紹與資歷時間軸 (Executive Bio & Timeline) -->
+                <div class="lg:col-span-7 space-y-8" data-aos="fade-left">
+                    <div class="space-y-4">
+                        <span class="text-xs font-bold tracking-widest text-brand-600 uppercase">ABOUT LEADER</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">引領企業在 AI 浪潮中，穩健前行</h2>
+                        <div class="h-1.5 w-16 bg-gradient-to-r from-brand-500 to-secondary-500 rounded-full"></div>
+                    </div>
+
+                    <p class="text-slate-600 leading-relaxed">
+                        我是李東洋。在 IT 與科技產業擁有超過 20 年的實務洗禮。歷任工研院、華碩、和碩與神盾科技等指標性大廠與研究機構，現任奇邑科技股份有限公司副總經理。
+                    </p>
+                    <p class="text-slate-600 leading-relaxed">
+                        我堅信「技術必須為商業創造實質價值」。在近年 AI 狂潮下，我不僅僅看重演算法的迭代，更專注於將 AI 算力、GPU Server、物聯網與服務型機器人融合，為大樓智慧管理、零售、製造等領域建構出真正行得通、看得見營運成效的基礎工程。
+                    </p>
+
+                    <!-- 長期專注領域標籤 -->
+                    <div class="space-y-3">
+                        <h4 class="text-xs font-bold tracking-wider text-slate-400 uppercase">核心研究與專注領域</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-xs font-semibold text-slate-700">AI 服務型機器人</span>
+                            <span class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-xs font-semibold text-slate-700">GPU 算力中心建置</span>
+                            <span class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-xs font-semibold text-slate-700">AI 伺服器整合</span>
+                            <span class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-xs font-semibold text-slate-700">IoT 物聯網架構</span>
+                            <span class="px-3.5 py-1.5 rounded-lg bg-slate-100 text-xs font-semibold text-slate-700">智慧製造與數位轉型</span>
+                        </div>
+                    </div>
+
+                    <!-- 職涯發展歷程 (Timeline) -->
+                    <div class="space-y-4 pt-4 border-t border-slate-200/60">
+                        <h4 class="text-xs font-bold tracking-wider text-slate-400 uppercase">名企履歷與實務軌跡</h4>
+                        
+                        <div class="space-y-6 relative border-l border-slate-200 pl-4 ml-2">
+                            <!-- 節點 1 -->
+                            <div class="relative">
+                                <span class="absolute -left-6 top-1.5 w-3.5 h-3.5 rounded-full border-2 border-brand-500 bg-white"></span>
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                                    <h5 class="font-bold text-slate-800 text-base">奇邑科技股份有限公司 — 副總經理</h5>
+                                    <span class="text-xs font-medium text-brand-600 bg-brand-50 px-2 py-0.5 rounded mt-1 sm:mt-0 w-fit">現任</span>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-1">主導 AI 機器人、AI Server、AI Agent 與邊緣算力應用之落地部署與大中華區策略。</p>
+                            </div>
+                            
+                            <!-- 節點 2 -->
+                            <div class="relative">
+                                <span class="absolute -left-6 top-1.5 w-3.5 h-3.5 rounded-full border-2 border-slate-300 bg-white"></span>
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                                    <h5 class="font-bold text-slate-700 text-base">神盾科技 ｜ 專案管理與業務總監</h5>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-1">負責智慧感測安全技術與大廠整合專案，開拓數個國際客戶標竿解決方案。</p>
+                            </div>
+
+                            <!-- 節點 3 -->
+                            <div class="relative">
+                                <span class="absolute -left-6 top-1.5 w-3.5 h-3.5 rounded-full border-2 border-slate-300 bg-white"></span>
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                                    <h5 class="font-bold text-slate-700 text-base">華碩、和碩 ｜ IT與研發硬體整合部門核心</h5>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-1">積累巨量精密硬體、系統整合、供應鏈管理及全球大型 IT 專案落地能力。</p>
+                            </div>
+
+                            <!-- 節點 4 -->
+                            <div class="relative">
+                                <span class="absolute -left-6 top-1.5 w-3.5 h-3.5 rounded-full border-2 border-slate-300 bg-white"></span>
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                                    <h5 class="font-bold text-slate-700 text-base">工研院 (ITRI) — 核心研究專案主管</h5>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-1">深耕物聯網感知、前沿網路架構，奠定日後深厚國家級研發實力與專利視角。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 解決方案與服務 SOLUTIONS ==================== -->
+    <section id="solutions" class="py-24 relative z-20 bg-slate-50/50">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                <span class="text-xs font-bold tracking-widest text-brand-600 uppercase">SOLUTIONS & SERVICES</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">前沿 AI 架構・全方位客製解決方案</h2>
+                <div class="h-1.5 w-16 bg-gradient-to-r from-brand-500 to-secondary-500 rounded-full mx-auto"></div>
+                <p class="text-sm text-slate-500">不空談理想。從硬體算力、實體機器人到雲端智慧 Agent，我們提供全棧、可執行的成熟技術解決方案。</p>
+            </div>
+
+            <!-- 6 張高端玻璃擬態卡片 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- 卡片 1: AI 服務型機器人 -->
+                <div class="glass-card p-8 rounded-3xl flex flex-col justify-between" data-aos="fade-up" data-aos-delay="100">
+                    <div class="space-y-6">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-500 text-xl">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="text-xl font-bold text-slate-800">AI 服務型機器人</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed">提供智慧物業接待、全天候導覽、安全巡檢等客製化機器人系統，整合地圖導航與精準避障技術。</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                        <span>場域落地 ｜ 智慧物業</span>
+                        <i class="fa-solid fa-circle-chevron-right text-brand-500 text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- 卡片 2: AI 伺服器規劃 -->
+                <div class="glass-card p-8 rounded-3xl flex flex-col justify-between" data-aos="fade-up" data-aos-delay="200">
+                    <div class="space-y-6">
+                        <div class="w-12 h-12 rounded-2xl bg-secondary-50 border border-secondary-100 flex items-center justify-center text-secondary-500 text-xl">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="text-xl font-bold text-slate-800">AI 伺服器規劃</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed">根據大模型（LLM）微調或高強度推論之特定需求，為企業定制最合適的伺服器拓樸與網路通訊方案。</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                        <span>算力優化 ｜ 硬體定制</span>
+                        <i class="fa-solid fa-circle-chevron-right text-secondary-500 text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- 卡片 3: GPU 算力中心建置 -->
+                <div class="glass-card p-8 rounded-3xl flex flex-col justify-between" data-aos="fade-up" data-aos-delay="300">
+                    <div class="space-y-6">
+                        <div class="w-12 h-12 rounded-2xl bg-accent-50 border border-accent-100 flex items-center justify-center text-accent-500 text-xl">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="text-xl font-bold text-slate-800">GPU 算力中心建置</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed">規劃、散熱設計與部署多卡並行 GPU 集群，建立企業自主研發基礎，確保資料安全性與最高效能。</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                        <span>國家級規劃 ｜ 高壓散熱</span>
+                        <i class="fa-solid fa-circle-chevron-right text-accent-500 text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- 卡片 4: AI Agent 解決方案 -->
+                <div class="glass-card p-8 rounded-3xl flex flex-col justify-between" data-aos="fade-up" data-aos-delay="400">
+                    <div class="space-y-6">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-500 text-xl">
+                            <i class="fa-solid fa-network-wired"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="text-xl font-bold text-slate-800">AI Agent 解決方案</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed">設計具自適應學習與多任務鏈條調度能力的數位代理（Agents），大幅精簡繁雜的辦公室流程。</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                        <span>流程自動化 ｜ 大語言模型</span>
+                        <i class="fa-solid fa-circle-chevron-right text-brand-500 text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- 卡片 5: AIGC 落地轉化 -->
+                <div class="glass-card p-8 rounded-3xl flex flex-col justify-between" data-aos="fade-up" data-aos-delay="500">
+                    <div class="space-y-6">
+                        <div class="w-12 h-12 rounded-2xl bg-secondary-50 border border-secondary-100 flex items-center justify-center text-secondary-500 text-xl">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="text-xl font-bold text-slate-800">AIGC 落地轉化</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed">輔導團隊掌握生成式圖像與文字工作流，結合垂直產業資料，實現極高效率與品質的生成內容管線。</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                        <span>創意賦能 ｜ 流程再造</span>
+                        <i class="fa-solid fa-circle-chevron-right text-secondary-500 text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- 卡片 6: 數位轉型顧問 -->
+                <div class="glass-card p-8 rounded-3xl flex flex-col justify-between" data-aos="fade-up" data-aos-delay="600">
+                    <div class="space-y-6">
+                        <div class="w-12 h-12 rounded-2xl bg-accent-50 border border-accent-100 flex items-center justify-center text-accent-500 text-xl">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="text-xl font-bold text-slate-800">數位轉型顧問</h3>
+                            <p class="text-xs text-slate-500 leading-relaxed">以副總總經理級別的國際視野，為中大型傳統產業客製數位化路線圖，讓科技真正轉化為獲利手段。</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                        <span>高端戰略 ｜ 變現指標</span>
+                        <i class="fa-solid fa-circle-chevron-right text-accent-500 text-sm"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 成功案例 CASES ==================== -->
+    <section id="cases" class="py-24 relative z-20">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                <span class="text-xs font-bold tracking-widest text-brand-600 uppercase">CASE STUDIES</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">指標專案落地・數據驗證實效</h2>
+                <div class="h-1.5 w-16 bg-gradient-to-r from-brand-500 to-secondary-500 rounded-full mx-auto"></div>
+                <p class="text-sm text-slate-500">最真實的實踐。以下呈現我們深入社區、算力中心、物業與工業物聯網取得的重大成果。</p>
+            </div>
+
+            <!-- 案例排列 -->
+            <div class="space-y-16">
+                
+                <!-- 案例 1: 智慧社區與 AI 服務機器人 -->
+                <div class="glass-panel rounded-3xl p-8 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-aos="fade-up">
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="inline-flex items-center space-x-2 bg-brand-50 border border-brand-100 px-3 py-1 rounded-full text-xs font-semibold text-brand-600">
+                            <span>物聯網 + AI 實體機器人</span>
+                        </div>
+                        <h3 class="text-2xl lg:text-3xl font-extrabold text-slate-900">大型指標社區：AI 服務機器人全天候無感巡視</h3>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-600">
+                            <div class="p-4 bg-slate-50/60 rounded-xl border border-slate-100">
+                                <span class="font-bold text-slate-800 block mb-1">面臨挑戰</span>
+                                長期夜間保全人力不足、社區占地廣大存在安防死角、傳統巡檢報表易出紕漏。
+                            </div>
+                            <div class="p-4 bg-brand-50/20 rounded-xl border border-brand-100">
+                                <span class="font-bold text-brand-700 block mb-1">解決方案</span>
+                                部署奇邑科技 AI 服務型機器人，對接社區 IoT 網路與電梯控制系統，實現全自動跨樓層安全巡檢與熱點監測。
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 右側數據看板 (Premium Dashboard Widget) -->
+                    <div class="lg:col-span-5 bg-gradient-to-tr from-slate-900 to-slate-800 p-8 rounded-2xl text-white space-y-6 shadow-xl">
+                        <div class="flex items-center justify-between border-b border-slate-700/60 pb-4">
+                            <span class="text-xs font-mono tracking-widest text-slate-400">METRICS DASHBOARD</span>
+                            <span class="flex h-2 w-2 relative">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-500"></span>
+                            </span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="space-y-1">
+                                <span class="text-[10px] tracking-wider text-slate-400 uppercase">夜間巡檢覆蓋</span>
+                                <div class="text-3xl font-extrabold text-accent-500">100%</div>
+                            </div>
+                            <div class="space-y-1">
+                                <span class="text-[10px] tracking-wider text-slate-400 uppercase">人力成本降低</span>
+                                <div class="text-3xl font-extrabold text-white">30%</div>
+                            </div>
+                            <div class="space-y-1">
+                                <span class="text-[10px] tracking-wider text-slate-400 uppercase">安全隱患反應速度</span>
+                                <div class="text-3xl font-extrabold text-white">4.5x <span class="text-sm font-normal">倍速</span></div>
+                            </div>
+                            <div class="space-y-1">
+                                <span class="text-[10px] tracking-wider text-slate-400 uppercase">營運效能提升</span>
+                                <div class="text-3xl font-extrabold text-accent-500">60%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 案例 2: AI 算力建置與智慧製造 -->
+                <div class="glass-panel rounded-3xl p-8 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="lg:col-span-7 space-y-6 lg:order-2">
+                        <div class="inline-flex items-center space-x-2 bg-secondary-50 border border-secondary-100 px-3 py-1 rounded-full text-xs font-semibold text-secondary-600">
+                            <span>基礎設施 ｜ AI 伺服器集群</span>
+                        </div>
+                        <h3 class="text-2xl lg:text-3xl font-extrabold text-slate-900">高端製造業 GPU 算力中心高壓水冷部署</h3>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-600">
+                            <div class="p-4 bg-slate-50/60 rounded-xl border border-slate-100">
+                                <span class="font-bold text-slate-800 block mb-1">面臨挑戰</span>
+                                半導體缺陷檢測大模型微調，算力暴增引發機房溫度失控與配電超載問題。
+                            </div>
+                            <div class="p-4 bg-secondary-50/20 rounded-xl border border-secondary-100">
+                                <span class="font-bold text-secondary-700 block mb-1">解決方案</span>
+                                重新設計伺服器高密度排列拓樸，搭配液冷散熱技術與自動負載均衡演算法。
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 左側數據看板 (Premium Dashboard Widget) -->
+                    <div class="lg:col-span-5 bg-gradient-to-br from-slate-950 to-slate-900 p-8 rounded-2xl text-white space-y-6 shadow-xl lg:order-1">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                            <span class="text-xs font-mono tracking-widest text-slate-400">METRICS DASHBOARD</span>
+                            <span class="flex h-2 w-2 relative">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                            </span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="space-y-1">
+                                <span class="text-[10px] tracking-wider text-slate-400 uppercase">缺陷檢測精度</span>
+                                <div class="text-3xl font-extrabold text-brand-500">99.8%</div>
+                            </div>
+                            <div class="space-y-1">
+                                <span class="text-[10px] tracking-wider text-slate-400 uppercase">散熱能耗 (PUE)</span>
+                                <div class="text-3xl font-extrabold text-white">1.18</div>
+                            </div>
+                            <div class="space-y-1">
+                                <span class="text-[10px] tracking-wider text-slate-400 uppercase">檢測處理速度</span>
+                                <div class="text-3xl font-extrabold text-white">-75% <span class="text-sm font-normal">耗時</span></div>
+                            </div>
+                            <div class="space-y-1">
+                                <span class="text-[10px] tracking-wider text-slate-400 uppercase">生產線稼動率</span>
+                                <div class="text-3xl font-extrabold text-brand-500">45% <span class="text-sm font-normal">↑</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 技術部落格 BLOG ==================== -->
+    <section id="blog" class="py-24 relative z-20 bg-slate-50/50">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+                <div class="space-y-4 text-left max-w-xl">
+                    <span class="text-xs font-bold tracking-widest text-brand-600 uppercase">TECH BLOG</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">前沿觀察．洞悉 AI 巨變</h2>
+                    <div class="h-1.5 w-16 bg-gradient-to-r from-brand-500 to-secondary-500 rounded-full"></div>
+                    <p class="text-sm text-slate-500">李東洋副總經理親筆，以產業高管視角解析算力、LLM 與自動化機器人發展的商業機會與痛點。</p>
+                </div>
+                <div class="flex space-x-2">
+                    <button class="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center bg-white hover:bg-slate-50 text-slate-600 transition-all shadow-sm" id="blog-prev" aria-label="Previous Post"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+                    <button class="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center bg-white hover:bg-slate-50 text-slate-600 transition-all shadow-sm" id="blog-next" aria-label="Next Post"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+                </div>
+            </div>
+
+            <!-- 卡片式設計部落格 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-container">
+                
+                <!-- 文章 1 -->
+                <article class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between h-full group" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="p-8 space-y-4">
+                        <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
+                            <span class="px-2.5 py-1 rounded-md bg-brand-50 text-brand-600 font-semibold">AI Agent</span>
+                            <span>2026 年 6 月 10 日</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-500 transition-colors">
+                            <a href="#">AI Agent 如何真正走入企業：從對話式 UI 到自主工作流調度</a>
+                        </h3>
+                        <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">
+                            大模型不僅是客服聊天機器人，真正的價值在於 AI Agent 能夠主動串接 ERP、CRM 與資料分析管線，形成真正的自主工作流。
+                        </p>
+                    </div>
+                    <div class="p-8 pt-0 flex items-center justify-between border-t border-slate-100 mt-6 text-xs text-slate-600">
+                        <span class="flex items-center"><i class="fa-regular fa-clock mr-1.5 text-slate-400"></i>5 分鐘閱讀時間</span>
+                        <span class="font-bold text-brand-500 group-hover:underline">閱讀更多 <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                    </div>
+                </article>
+
+                <!-- 文章 2 -->
+                <article class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between h-full group" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="p-8 space-y-4">
+                        <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
+                            <span class="px-2.5 py-1 rounded-md bg-secondary-50 text-secondary-600 font-semibold">LLM & Big Data</span>
+                            <span>2026 年 5 月 28 日</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-500 transition-colors">
+                            <a href="#">垂直領域的大語言模型實踐：為何企業不需要一味追求萬億參數大模型</a>
+                        </h3>
+                        <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">
+                            中小型企業如何利用檢索增強生成（RAG）與開源小模型（SLM）搭配精準調教，以極低的硬體代價創造超過大型商業模型的精準回覆率。
+                        </p>
+                    </div>
+                    <div class="p-8 pt-0 flex items-center justify-between border-t border-slate-100 mt-6 text-xs text-slate-600">
+                        <span class="flex items-center"><i class="fa-regular fa-clock mr-1.5 text-slate-400"></i>7 分鐘閱讀時間</span>
+                        <span class="font-bold text-brand-500 group-hover:underline">閱讀更多 <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                    </div>
+                </article>
+
+                <!-- 文章 3 -->
+                <article class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between h-full group" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="p-8 space-y-4">
+                        <div class="flex items-center justify-between text-xs text-slate-400 font-medium">
+                            <span class="px-2.5 py-1 rounded-md bg-accent-50 text-accent-600 font-semibold">Service Robot</span>
+                            <span>2026 年 5 月 15 日</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-500 transition-colors">
+                            <a href="#">從機械手臂到智慧移動：機器人產業在實體經濟中的下一個十年</a>
+                        </h3>
+                        <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">
+                            分析全球供應鏈重組大背景下，高齡化社會對服務型機器人、安防巡視機器人的硬性需求缺口，以及奇邑科技的技術應對思路。
+                        </p>
+                    </div>
+                    <div class="p-8 pt-0 flex items-center justify-between border-t border-slate-100 mt-6 text-xs text-slate-600">
+                        <span class="flex items-center"><i class="fa-regular fa-clock mr-1.5 text-slate-400"></i>4 分鐘閱讀時間</span>
+                        <span class="font-bold text-brand-500 group-hover:underline">閱讀更多 <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== AI 新聞情報區 NEWS ==================== -->
+    <section id="news" class="py-24 relative z-20">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                <span class="text-xs font-bold tracking-widest text-brand-600 uppercase">AI Intelligence Center</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">全球科技脈動・動態追蹤</h2>
+                <div class="h-1.5 w-16 bg-gradient-to-r from-brand-500 to-secondary-500 rounded-full mx-auto"></div>
+                <p class="text-sm text-slate-500">直連一線科技前沿。從 NVIDIA 的硬體巨變到 OpenAI、Anthropic 的大模型，洞悉全球科技領頭羊的即時動態。</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- 左側：NVIDIA & OpenAI 重點新聞卡片 -->
+                <div class="lg:col-span-8 space-y-6">
+                    
+                    <div class="glass-panel p-6 rounded-2xl flex flex-col sm:flex-row gap-6 items-start hover:shadow-lg transition-all" data-aos="fade-right">
+                        <div class="w-full sm:w-1/3 aspect-video sm:aspect-square rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center relative overflow-hidden">
+                            <!-- NVIDIA Enterprise Logo Placeholder/Vibe -->
+                            <div class="absolute inset-0 bg-gradient-to-tr from-emerald-950 to-slate-900 flex flex-col justify-between p-4">
+                                <span class="text-emerald-400 font-extrabold text-xs tracking-wider">NVIDIA ENTERPRISE</span>
+                                <i class="fa-solid fa-network-wired text-white text-3xl opacity-50"></i>
+                                <span class="text-[10px] text-slate-400">June 2026</span>
+                            </div>
+                        </div>
+                        <div class="w-full sm:w-2/3 flex flex-col justify-between h-full space-y-4">
+                            <div class="space-y-2">
+                                <span class="text-[10px] font-bold tracking-widest text-emerald-500 uppercase">NVIDIA NEWS</span>
+                                <h4 class="text-lg font-bold text-slate-900 hover:text-brand-500 transition-colors">NVIDIA Blackwell Ultra 晶片正式大規模發出：主導新一輪資料中心能源優化</h4>
+                                <p class="text-xs text-slate-500">輝達全新一代架構，顯著提升千億參數模型訓練能效比，水冷設計成為超大型算力中心標準配備。</p>
+                            </div>
+                            <span class="text-xs text-slate-400">來源 ｜ NVIDIA 官方情報庫</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-2xl flex flex-col sm:flex-row gap-6 items-start hover:shadow-lg transition-all" data-aos="fade-right" data-aos-delay="100">
+                        <div class="w-full sm:w-1/3 aspect-video sm:aspect-square rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center relative overflow-hidden">
+                            <!-- OpenAI/Anthropic News Placeholder/Vibe -->
+                            <div class="absolute inset-0 bg-gradient-to-tr from-slate-900 to-slate-800 flex flex-col justify-between p-4">
+                                <span class="text-white font-extrabold text-xs tracking-wider">OPENAI INTELLIGENCE</span>
+                                <i class="fa-solid fa-microchip text-slate-400 text-3xl opacity-50"></i>
+                                <span class="text-[10px] text-slate-400">May 2026</span>
+                            </div>
+                        </div>
+                        <div class="w-full sm:w-2/3 flex flex-col justify-between h-full space-y-4">
+                            <div class="space-y-2">
+                                <span class="text-[10px] font-bold tracking-widest text-brand-500 uppercase">OPENAI / AGENT NEWS</span>
+                                <h4 class="text-lg font-bold text-slate-900 hover:text-brand-500 transition-colors">OpenAI 釋出 GPT-5 推理增強版，賦予 Agent 多模態物聯網指令編排能力</h4>
+                                <p class="text-xs text-slate-500">該模型著重優化與機器人（Robotics）作業系統、工業物聯網標準協議對接，使得自主 Agent 的落地門檻大幅下修。</p>
+                            </div>
+                            <span class="text-xs text-slate-400">來源 ｜ TechCrunch 報導</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 右側：AI 網格即時情報看板（Widgets） -->
+                <div class="lg:col-span-4 space-y-6">
+                    <div class="glass-panel p-6 rounded-2xl space-y-6" data-aos="fade-left">
+                        <h4 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                            <span class="h-2.5 w-2.5 rounded-full bg-brand-500 block"></span>
+                            <span>東洋觀點：算力前哨指標</span>
+                        </h4>
+
+                        <div class="space-y-4">
+                            <div class="border-l-2 border-brand-500 pl-3 space-y-1">
+                                <span class="text-[10px] font-bold text-slate-400 block">算力需求評估</span>
+                                <p class="text-xs text-slate-700">「台灣本地 GPU 需求並未減緩，大廠正轉向建立專屬、合規的私有混合雲。」</p>
+                            </div>
+                            <div class="border-l-2 border-secondary-500 pl-3 space-y-1">
+                                <span class="text-[10px] font-bold text-slate-400 block">服務機器人趨勢</span>
+                                <p class="text-xs text-slate-700">「純聊天沒用。機器人必須擁有精準的空間避障定位（SLAM），並與物業管理系統連動才能變現。」</p>
+                            </div>
+                            <div class="border-l-2 border-accent-500 pl-3 space-y-1">
+                                <span class="text-[10px] font-bold text-slate-400 block">企業轉型核心</span>
+                                <p class="text-xs text-slate-700">「別想著一步到位用 AI 淘汰所有舊系統，先從最核心的 5% 高人力耗損環節切入。」</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 聯絡我 & 預約諮詢 CONTACT ==================== -->
+    <section id="contact" class="py-24 relative z-20 bg-slate-900 text-white rounded-t-[50px] overflow-hidden">
+        
+        <!-- 背景漸層光暈 -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+            <div class="glow-orb bg-brand-500 w-[500px] h-[500px] -bottom-40 -left-20"></div>
+            <div class="glow-orb bg-secondary-500 w-[500px] h-[500px] top-[-200px] right-[-100px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                
+                <!-- 左側：聯絡引言與 Google Calendar 開發預約 -->
+                <div class="lg:col-span-5 space-y-8" data-aos="fade-right">
+                    <div class="space-y-4">
+                        <span class="text-xs font-bold tracking-widest text-brand-400 uppercase">CONTACT & BOOKING</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">與大師對話・開啟您的 AI 新藍圖</h2>
+                        <div class="h-1.5 w-16 bg-gradient-to-r from-brand-400 to-secondary-500 rounded-full"></div>
+                    </div>
+
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        您正計畫建構新一代的 GPU 算力中心？或者希望評估服務機器人如何引進大型社區與園區？
+                    </p>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        歡迎直接點擊按鈕，進入 Google Calendar 進行一對一高端數位轉型諮詢預約。
+                    </p>
+
+                    <div class="space-y-4 pt-4 border-t border-slate-800">
+                        <div class="flex items-center space-x-3 text-sm text-slate-300">
+                            <i class="fa-solid fa-envelope text-brand-400 w-5"></i>
+                            <span>service@chiyi.tech ｜ info@tongyangli.pro</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-sm text-slate-300">
+                            <i class="fa-solid fa-location-dot text-brand-400 w-5"></i>
+                            <span>中華民國・台北市內湖科技園區 / 新竹科學園區</span>
+                        </div>
+                    </div>
+
+                    <!-- 核心產品與技術解決方案 -->
+                    <div class="pt-6 space-y-4">
+                        <h3 class="text-sm font-bold uppercase tracking-widest text-brand-400">核心產品與技術解決方案</h3>
+                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <a href="https://courses.taiwanmds.com/product/information?p=02c0c7b9ec7b11f0b3480242ac110002" target="_blank" class="group block rounded-3xl border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:border-brand-400 hover:bg-white/10">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-11 h-11 rounded-2xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-lg">
+                                        <i class="fa-solid fa-chart-line"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs uppercase tracking-widest text-slate-400 mb-1">📊 Vibe Coding：行銷數據分析學習圈</p>
+                                        <p class="text-sm text-slate-300 leading-relaxed">📈 訂閱Vibe Coding行銷數據分析學習圈，跟著我們一同走入 <span class="text-brand-400 font-semibold">行銷數據分析</span> 與 <span class="text-emerald-400 font-semibold">vibe coding自動化</span> 的世界。</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="https://judgai.com/" target="_blank" class="group block rounded-3xl border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:border-brand-400 hover:bg-white/10">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-11 h-11 rounded-2xl bg-secondary-500/10 text-secondary-400 flex items-center justify-center text-lg">
+                                        <i class="fa-solid fa-shield-halved"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs uppercase tracking-widest text-slate-400 mb-1">🤖 保險機器人：當經驗成為奇點</p>
+                                        <p class="text-sm text-slate-300 leading-relaxed">⚖️ 從 <span class="text-secondary-400 font-semibold">經驗、法條</span> 到 <span class="text-secondary-400 font-semibold">正確說明</span>，奇點讓每位保險專業者擁有一位 <span class="text-emerald-400 font-semibold">懂法的科技夥伴</span>。</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="https://judgai.com/saymind" target="_blank" class="group block rounded-3xl border border-white/10 bg-white/5 p-4 transition-all duration-300 hover:border-brand-400 hover:bg-white/10 sm:col-span-2">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-11 h-11 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg">
+                                        <i class="fa-solid fa-microphone-lines"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs uppercase tracking-widest text-slate-400 mb-1">🎙️ SayMind：一站式語音轉錄</p>
+                                        <p class="text-sm text-slate-300 leading-relaxed">🤖 使用 <span class="text-emerald-400 font-semibold">LangChain</span> 搭建的 <span class="text-emerald-400 font-semibold">RAG 系統</span>，可 📄 上傳 PDF 並進行 ⚡ 精準問答。</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 多元社群圖示配置 - 外部依賴庫風格 -->
+                    <div class="pt-6 space-y-4">
+                        <h3 class="text-sm font-bold uppercase tracking-widest text-brand-400">🌐 社群連結・加入我們</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="https://aistudy.pse.is/linemdsgroup" target="_blank" class="group flex items-center justify-center px-4 py-3 rounded-2xl border border-white/10 bg-white/5 transition-all duration-300 hover:border-emerald-400 hover:bg-emerald-500/10">
+                                <i class="fa-brands fa-line text-emerald-400 text-xl"></i>
+                                <span class="ml-2 text-xs font-semibold text-slate-300 group-hover:text-emerald-400">LINE 社群</span>
+                            </a>
+                            <a href="https://github.com/moneone06-oss" target="_blank" class="group flex items-center justify-center px-4 py-3 rounded-2xl border border-white/10 bg-white/5 transition-all duration-300 hover:border-slate-300 hover:bg-white/10">
+                                <i class="fa-brands fa-github text-slate-300 text-xl"></i>
+                                <span class="ml-2 text-xs font-semibold text-slate-300 group-hover:text-white">GitHub</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/maverick-lee-301b2628/" target="_blank" class="group flex items-center justify-center px-4 py-3 rounded-2xl border border-white/10 bg-white/5 transition-all duration-300 hover:border-blue-400 hover:bg-blue-500/10">
+                                <i class="fa-brands fa-linkedin text-blue-400 text-xl"></i>
+                                <span class="ml-2 text-xs font-semibold text-slate-300 group-hover:text-blue-400">LinkedIn</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 填寫需求表單區塊 -->
+                    <div class="pt-6 space-y-4 bg-gradient-to-br from-brand-500/5 to-secondary-500/5 border border-brand-500/20 rounded-3xl p-6">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-clipboard-check text-brand-400 text-2xl mt-1"></i>
+                            <div>
+                                <h4 class="text-sm font-bold text-white mb-1">📋 快速填寫需求表單</h4>
+                                <p class="text-xs text-slate-400">告訴我們您的核心需求，我們將提供最符合的解決方案與合作模式。</p>
+                            </div>
+                        </div>
+                        <a href="https://forms.gle/zA3e4bUEkC15k29d8" target="_blank" class="btn-shimmer inline-flex items-center justify-center px-6 py-3 rounded-2xl bg-gradient-to-r from-brand-500 to-secondary-500 text-white font-semibold shadow-lg shadow-brand-500/10 hover:scale-[1.02] transition-all w-full text-center">
+                            <i class="fa-solid fa-pen-to-square mr-2"></i>
+                            <span>立即填寫需求表單</span>
+                        </a>
+                    </div>
+
+                    <!-- 快速預約入口 -->
+                    <div class="pt-4">
+                        <a href="https://calendar.app.google/rjwe3RV3GSw3FB1G7" target="_blank" class="btn-shimmer inline-flex items-center justify-center px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-500 to-secondary-500 text-white font-semibold shadow-lg shadow-brand-500/10 hover:scale-[1.02] transition-all w-full text-center">
+                            <i class="fa-solid fa-calendar-days mr-2.5"></i>
+                            <span>立即在 Google Calendar 預約</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 右側：聯絡表單 (Premium Form) -->
+                <div class="lg:col-span-7 bg-white/5 border border-white/10 p-8 rounded-3xl" data-aos="fade-left">
+                    <h3 class="text-xl font-bold mb-6 text-white">留下聯絡資訊，我將親自與您聯繫</h3>
+                    
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-xs font-semibold text-slate-300">您的尊稱</label>
+                                <input type="text" name="name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition-colors" placeholder="例如：林先生 / 林總經理">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-semibold text-slate-300">企業/組織名稱</label>
+                                <input type="text" name="company" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition-colors" placeholder="例如：奇邑科技">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-slate-300">電子郵件信箱</label>
+                            <input type="email" name="email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition-colors" placeholder="name@yourcompany.com">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-slate-300">諮詢主題</label>
+                            <select name="subject" class="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition-colors">
+                                <option value="robot">AI 服務型機器人導入</option>
+                                <option value="gpu">GPU 算力中心/伺服器建置</option>
+                                <option value="consulting">企業數位轉型深度顧問</option>
+                                <option value="media">媒體採訪或學術專案合作</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-slate-300">您的需求簡述</label>
+                            <textarea name="message" rows="4" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition-colors resize-none" placeholder="請簡單告訴我您的核心需求與期望時限..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl bg-brand-500 hover:bg-brand-600 font-semibold tracking-wider text-sm transition-all shadow-md shadow-brand-500/20 flex items-center justify-center gap-2">
+                            <span>送出資訊 ｜ 期待合作</span>
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </form>
+                    
+                    <!-- 提示盒 -->
+                    <div id="form-feedback" class="hidden mt-4 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs text-center">
+                        您的訊息已成功送出！我將在 24 小時內與您聯繫。
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 頁尾宣告與 Social Media Footer -->
+        <footer class="mt-24 pt-8 border-t border-white/10 text-slate-500 text-xs">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 pb-8">
+                
+                <div class="flex flex-col items-center md:items-start space-y-2">
+                    <span class="text-base font-bold text-white tracking-wider">Technology Creates Value．AI Empowers Business</span>
+                    <p class="text-[11px] text-slate-500">© 2026 Tong-Yang Li. All rights reserved. 奇邑科技股份有限公司副總經理版權所有</p>
+                </div>
+
+                <div class="flex space-x-6">
+                    <a href="#" aria-label="LinkedIn Profile" class="text-slate-400 hover:text-white transition-colors text-lg"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" aria-label="Facebook Profile" class="text-slate-400 hover:text-white transition-colors text-lg"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" aria-label="Line Profile" class="text-slate-400 hover:text-white transition-colors text-lg"><i class="fa-brands fa-line"></i></a>
+                    <a href="mailto:service@chiyi.tech" aria-label="Send Email" class="text-slate-400 hover:text-white transition-colors text-lg"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+
+            </div>
+        </footer>
+    </section>
+
+    <!-- AOS滾動偵測與初始化 JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // ------------------ (1) 初始化 AOS 滾動展示 ------------------
+        AOS.init({
+            duration: 800,
+            once: true,
+            easing: 'ease-out-cubic'
+        });
+
+        // ------------------ (2) 頂部導覽列滾動動態 ------------------
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2', 'shadow-md');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.add('py-4');
+                nav.classList.remove('py-2', 'shadow-md');
+            }
+            updateActiveLink();
+        });
+
+        // 導覽動態 Active 狀態切換
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function updateActiveLink() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // ------------------ (3) 手機版 Hamburger Menu ------------------
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const burgerTop = document.getElementById('burger-top');
+        const burgerMid = document.getElementById('burger-mid');
+        const burgerBottom = document.getElementById('burger-bottom');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            // 漢堡動態轉換
+            burgerTop.classList.toggle('rotate-45');
+            burgerTop.classList.toggle('translate-y-1.5');
+            burgerMid.classList.toggle('opacity-0');
+            burgerBottom.classList.toggle('-rotate-45');
+            burgerBottom.classList.toggle('-translate-y-1.5');
+        });
+
+        // 點選手機選單連結後自動關閉
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                burgerTop.classList.remove('rotate-45', 'translate-y-1.5');
+                burgerMid.classList.remove('opacity-0');
+                burgerBottom.classList.remove('-rotate-45', '-translate-y-1.5');
+            });
+        });
+
+        // ------------------ (4) Typed.js 打字機效果 ------------------
+        new Typed('#typed-text', {
+            strings: [
+                '以 AI 算力驅動未來。',
+                '以智慧機器人重塑服務價值。',
+                '讓 AI 看得見效益。',
+                '讓機器人創造價值。',
+                '協助企業打造下一代 AI 基礎建設。',
+                '從 AI 策略到落地實現。'
+            ],
+            typeSpeed: 50,
+            backSpeed: 30,
+            backDelay: 2000,
+            loop: true,
+            cursorChar: '|'
+        });
+
+        // ------------------ (5) 原生高效能 Canvas 白色粒子與資料流系統 ------------------
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particlesArray = [];
+        let dataFlowArray = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+        resizeCanvas();
+
+        // 粒子類別
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.3 - 0.15;
+                this.speedY = Math.random() * 0.3 - 0.15;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
+                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(0, 102, 204, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // 數據流 (Data Flow Line)
+        class DataFlow {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = 0;
+                this.speedY = Math.random() * 1.5 + 0.5;
+                this.length = Math.random() * 80 + 30;
+                this.opacity = Math.random() * 0.15 + 0.05;
+                this.width = Math.random() * 1 + 0.5;
+            }
+            update() {
+                this.y += this.speedY;
+                if (this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+            draw() {
+                let grad = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.length);
+                grad.addColorStop(0, `rgba(37, 99, 235, 0)`);
+                grad.addColorStop(1, `rgba(124, 58, 237, ${this.opacity})`);
+                ctx.strokeStyle = grad;
+                ctx.lineWidth = this.width;
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x, this.y + this.length);
+                ctx.stroke();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            dataFlowArray = [];
+            const count = Math.min(60, Math.floor(window.innerWidth / 25));
+            for (let i = 0; i < count; i++) {
+                particlesArray.push(new Particle());
+            }
+            for (let i = 0; i < 15; i++) {
+                dataFlowArray.push(new DataFlow());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 繪製微弱粒子連接線 (浮動網格)
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+
+                for (let j = i; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 120) {
+                        ctx.strokeStyle = `rgba(37, 99, 235, ${0.05 * (1 - dist / 120)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // 繪製垂直數據流
+            dataFlowArray.forEach(flow => {
+                flow.update();
+                flow.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+
+        // ------------------ (6) 聯絡表單送出狀態 (無警報) ------------------
+        const form = document.getElementById('contact-form');
+        const feedback = document.getElementById('form-feedback');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            form.reset();
+            feedback.classList.remove('hidden');
+            setTimeout(() => {
+                feedback.classList.add('hidden');
+            }, 5000);
+        });
+
+        // ------------------ (7) 自定義部落格輕滑動互動 ------------------
+        const container = document.getElementById('blog-container');
+        document.getElementById('blog-next').addEventListener('click', () => {
+            container.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+        document.getElementById('blog-prev').addEventListener('click', () => {
+            container.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
