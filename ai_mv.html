@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VividSynth AI - 幻境影音 | 頂級 AI MV 製作招商計畫</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            blue: '#00f0ff',
+                            purple: '#9d4edd',
+                            magenta: '#ff007f',
+                            dark: '#0a0a12',
+                            card: '#121225',
+                        }
+                    },
+                    boxShadow: {
+                        'neon-blue': '0 0 15px rgba(0, 240, 255, 0.5)',
+                        'neon-magenta': '0 0 15px rgba(255, 0, 127, 0.5)',
+                        'neon-purple': '0 0 20px rgba(157, 78, 221, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+TC:wght@300;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Noto Sans TC', 'Orbitron', sans-serif;
+            background-color: #0a0a12;
+            overflow-x: hidden;
+        }
+
+        /* YouTube Background Scaling Magic to ensure full cover without black bars */
+        .video-background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .video-background-iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 56.25vw; /* 16:9 aspect ratio */
+            min-height: 100vh;
+            min-width: 177.77vh; /* 16:9 aspect ratio */
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(18, 18, 37, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-nav {
+            background: rgba(10, 10, 18, 0.75);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #9d4edd;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f0ff;
+        }
+
+        /* Glowing text anim */
+        @keyframes pulse-glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3); }
+            50% { text-shadow: 0 0 20px rgba(255, 0, 127, 0.8), 0 0 35px rgba(255, 0, 127, 0.5); }
+        }
+        .glowing-title {
+            animation: pulse-glow 4s infinite;
+        }
+    </style>
+</head>
+<body class="text-gray-200">
+
+    <!-- 1. Header & Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-cyber-blue to-cyber-magenta flex items-center justify-center shadow-neon-blue group-hover:rotate-12 transition-transform duration-300">
+                    <i class="fa-solid fa-wand-magic-sparkles text-black text-xl"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-xl tracking-wider text-white font-['Orbitron']">VIVIDSYNTH</span>
+                    <span class="text-xs block text-cyber-blue tracking-widest font-semibold">AI MV STUDIO</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8 font-medium">
+                <a href="#hero" class="text-cyber-blue hover:text-white transition">首頁</a>
+                <a href="#highlights" class="hover:text-cyber-blue transition">AI 核心優勢</a>
+                <a href="#styles" class="hover:text-cyber-blue transition">風格畫廊</a>
+                <a href="#business" class="hover:text-cyber-blue transition">招商方案</a>
+                <a href="#calculator" class="hover:text-cyber-blue transition">回報計算</a>
+                <a href="#contact" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-cyber-blue to-cyber-purple text-black font-bold tracking-wider hover:opacity-90 transition shadow-neon-blue">立即洽談</a>
+            </div>
+
+            <!-- Audio & Menu Controls -->
+            <div class="flex items-center space-x-4">
+                <!-- Sound Toggle (Crucial for Autoplay YT) -->
+                <button id="soundToggleBtn" onclick="toggleMute()" class="w-11 h-11 rounded-full flex items-center justify-center border border-cyber-blue text-cyber-blue hover:bg-cyber-blue hover:text-black transition-all shadow-neon-blue" title="切換音效">
+                    <i id="soundIcon" class="fa-solid fa-volume-xmark"></i>
+                </button>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white text-2xl focus:outline-none" onclick="toggleMobileMenu()">
+                    <i id="mobileMenuIcon" class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileMenu" class="hidden md:hidden absolute top-20 left-0 w-full bg-cyber-dark border-b border-cyber-blue/30 px-6 py-8 flex flex-col space-y-6">
+            <a href="#hero" onclick="toggleMobileMenu()" class="text-lg text-cyber-blue border-b border-white/5 pb-2">首頁</a>
+            <a href="#highlights" onclick="toggleMobileMenu()" class="text-lg hover:text-cyber-blue border-b border-white/5 pb-2">AI 核心優勢</a>
+            <a href="#styles" onclick="toggleMobileMenu()" class="text-lg hover:text-cyber-blue border-b border-white/5 pb-2">風格畫廊</a>
+            <a href="#business" onclick="toggleMobileMenu()" class="text-lg hover:text-cyber-blue border-b border-white/5 pb-2">招商方案</a>
+            <a href="#calculator" onclick="toggleMobileMenu()" class="text-lg hover:text-cyber-blue border-b border-white/5 pb-2">回報計算</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block w-full text-center py-3 rounded-xl bg-gradient-to-r from-cyber-blue to-cyber-purple text-black font-bold">立即洽談</a>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section (with YouTube Full-screen Background) -->
+    <section id="hero" class="relative w-full h-screen flex items-center justify-center overflow-hidden">
+        
+        <!-- Full-screen YouTube Background -->
+        <div class="video-background-container">
+            <!-- Loading Fallback Overlay -->
+            <div id="videoPlaceholder" class="absolute inset-0 bg-cyber-dark flex items-center justify-center z-10 transition-opacity duration-1000">
+                <div class="text-center">
+                    <div class="w-16 h-16 border-4 border-cyber-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p class="text-sm tracking-wider text-cyber-blue/80">正在加載未來影音現場...</p>
+                </div>
+            </div>
+            
+            <!-- YouTube Player (Iframe API will target this) -->
+            <div id="youtubePlayer" class="video-background-iframe"></div>
+            
+            <!-- Dark/Color Gradient Overlay over Video to ensure legibility -->
+            <div class="absolute inset-0 bg-gradient-to-t from-cyber-dark via-cyber-dark/45 to-cyber-dark/80 z-20"></div>
+            <div class="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-cyber-dark/95 z-20"></div>
+        </div>
+
+        <!-- Hero Content (Z-Index 30 to hover above video background) -->
+        <div class="relative z-30 max-w-5xl mx-auto px-6 text-center mt-12">
+            <!-- Badge -->
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-panel border border-cyber-blue/30 mb-8 animate-bounce">
+                <span class="w-2.5 h-2.5 rounded-full bg-cyber-magenta animate-ping"></span>
+                <span class="text-xs md:text-sm font-semibold tracking-wider text-cyber-blue">全新 AI 影音革命 • 限量招商夥伴計畫</span>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+                解鎖無限想像力 <br>
+                <span class="bg-gradient-to-r from-cyber-blue via-cyber-purple to-cyber-magenta bg-clip-text text-transparent glowing-title">
+                    用 AI 重塑 MV 新紀元
+                </span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-base md:text-xl text-gray-300 max-w-3xl mx-auto mb-10 leading-relaxed font-light">
+                傳統 MV 動輒百萬成本、拍攝耗時數月。VividSynth 透過前沿 Generative AI 技術，只需10%的時間與預算，就能完美渲染出超越現實、好萊塢級別的視覺震撼！
+            </p>
+
+            <!-- CTA Button Group -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#business" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-cyber-blue to-cyber-purple text-black font-bold text-lg tracking-wider hover:shadow-neon-blue transition duration-300 flex items-center justify-center space-x-2 group">
+                    <span>瀏覽招商方案</span>
+                    <i class="fa-solid fa-arrow-trend-up group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                </a>
+                <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-full glass-panel border border-white/20 hover:border-cyber-magenta hover:shadow-neon-magenta text-white font-medium text-lg tracking-wider transition duration-300 flex items-center justify-center space-x-2">
+                    <span>申請合作諮詢</span>
+                    <i class="fa-solid fa-calendar-check"></i>
+                </a>
+            </div>
+
+            <!-- Floating Unmute Tip -->
+            <div class="mt-12 text-xs md:text-sm text-cyber-blue/80 flex items-center justify-center gap-2 animate-pulse cursor-pointer" onclick="toggleMute()">
+                <i class="fa-solid fa-volume-high"></i>
+                <span>聽見未來：點擊右上角解鎖影片原聲震撼</span>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center">
+            <span class="text-xs text-gray-400 tracking-widest uppercase mb-2 font-['Orbitron']">Scroll Down</span>
+            <div class="w-6 h-10 rounded-full border-2 border-cyber-blue flex items-start justify-center p-1.5">
+                <div class="w-1.5 h-3 bg-cyber-magenta rounded-full animate-bounce"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. AI Core Highlights Section -->
+    <section id="highlights" class="relative py-24 bg-cyber-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs md:text-sm text-cyber-blue uppercase font-bold tracking-widest mb-3 font-['Orbitron']">Core Advantage</h2>
+                <p class="text-3xl md:text-5xl font-extrabold text-white">為什麼投資 AI MV 製作？</p>
+                <div class="w-20 h-1 bg-gradient-to-r from-cyber-blue to-cyber-magenta mx-auto mt-4"></div>
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Highlight Card 1 -->
+                <div class="glass-panel p-8 rounded-3xl hover:border-cyber-blue/40 transition-all duration-300 group hover:-translate-y-2">
+                    <div class="w-14 h-14 rounded-2xl bg-cyber-blue/10 flex items-center justify-center text-cyber-blue text-2xl mb-6 shadow-neon-blue group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-bolt-lightning"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">超高速出片週期</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        傳統實景拍攝加上繁複的後期渲染，需要耗時1至2個月。我們的 AI 引擎能在短短 5 至 7 天內，生成並剪輯完成好萊塢品質的完整 MV。
+                    </p>
+                </div>
+
+                <!-- Highlight Card 2 -->
+                <div class="glass-panel p-8 rounded-3xl hover:border-cyber-magenta/40 transition-all duration-300 group hover:-translate-y-2">
+                    <div class="w-14 h-14 rounded-2xl bg-cyber-magenta/10 flex items-center justify-center text-cyber-magenta text-2xl mb-6 shadow-neon-magenta group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-piggy-bank"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">成本驟降 90%</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        省去龐大的外景場租、演員班底、導演組、化妝道具費用與巨額的影棚器材。將成本精準投入在創意的實現，小預算也能成就大作。
+                    </p>
+                </div>
+
+                <!-- Highlight Card 3 -->
+                <div class="glass-panel p-8 rounded-3xl hover:border-cyber-purple/40 transition-all duration-300 group hover:-translate-y-2">
+                    <div class="w-14 h-14 rounded-2xl bg-cyber-purple/10 flex items-center justify-center text-cyber-purple text-2xl mb-6 shadow-neon-purple group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-mask-face"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">無限的視覺維度</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        不管是太空史詩、奇幻魔法、賽博朋克還是二次元手繪，AI 能打破所有物理重力、光學常規，完美具現創作者腦海中的極致奇觀。
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 4. Style Gallery Section -->
+    <section id="styles" class="py-24 bg-gradient-to-b from-cyber-dark to-black">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                <div>
+                    <h2 class="text-xs md:text-sm text-cyber-blue uppercase font-bold tracking-widest mb-3 font-['Orbitron']">Style Gallery</h2>
+                    <p class="text-3xl md:text-5xl font-extrabold text-white">多元美學，一鍵即達</p>
+                </div>
+                <p class="text-gray-400 max-w-md mt-4 md:mt-0">
+                    我們的 AI 系統融合了 Stable Diffusion、Midjourney 以及自研的影片時序模型，能穩定生成各種類型的極致美學風格。
+                </p>
+            </div>
+
+            <!-- Styles Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Style 1 -->
+                <div class="group relative rounded-2xl overflow-hidden aspect-[3/4] shadow-lg">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&q=80&w=600" alt="賽博朋克未來風" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/400x533/121225/00f0ff?text=Cyberpunk+Style'">
+                    <div class="absolute bottom-0 left-0 w-full p-6 z-20">
+                        <span class="text-xs text-cyber-blue font-bold tracking-widest font-['Orbitron']">NEON FUTURE</span>
+                        <h4 class="text-xl font-bold text-white mt-1">極限賽博朋克</h4>
+                        <p class="text-xs text-gray-300 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">霓虹光影與流線機械的完美揉合，渲染出無與倫比的未來都市史詩。</p>
+                    </div>
+                </div>
+
+                <!-- Style 2 -->
+                <div class="group relative rounded-2xl overflow-hidden aspect-[3/4] shadow-lg">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&q=80&w=600" alt="未來日系動漫風" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/400x533/121225/ff007f?text=Anime+Style'">
+                    <div class="absolute bottom-0 left-0 w-full p-6 z-20">
+                        <span class="text-xs text-cyber-magenta font-bold tracking-widest font-['Orbitron']">ANIME SYNERGY</span>
+                        <h4 class="text-xl font-bold text-white mt-1">超寫實日系動漫</h4>
+                        <p class="text-xs text-gray-300 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">極致細膩的手繪質感，搭配流暢張力的動漫運鏡與炫目粒子特效。</p>
+                    </div>
+                </div>
+
+                <!-- Style 3 -->
+                <div class="group relative rounded-2xl overflow-hidden aspect-[3/4] shadow-lg">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=600" alt="超現實夢境" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/400x533/121225/9d4edd?text=Dreamscape+Style'">
+                    <div class="absolute bottom-0 left-0 w-full p-6 z-20">
+                        <span class="text-xs text-cyber-purple font-bold tracking-widest font-['Orbitron']">SURREAL DREAM</span>
+                        <h4 class="text-xl font-bold text-white mt-1">魔幻超現實夢境</h4>
+                        <p class="text-xs text-gray-300 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">突破常理的流體形態與重力錯位，用視覺編織最神祕的主題氛圍。</p>
+                    </div>
+                </div>
+
+                <!-- Style 4 -->
+                <div class="group relative rounded-2xl overflow-hidden aspect-[3/4] shadow-lg">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1500485035595-cbe6f645feb1?auto=format&fit=crop&q=80&w=600" alt="寫實3D數位人" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/400x533/121225/00f0ff?text=3D+CGI+Style'">
+                    <div class="absolute bottom-0 left-0 w-full p-6 z-20">
+                        <span class="text-xs text-green-400 font-bold tracking-widest font-['Orbitron']">3D HYPERREALISM</span>
+                        <h4 class="text-xl font-bold text-white mt-1">寫實級 CGI 擬真</h4>
+                        <p class="text-xs text-gray-300 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">電影級別的人物皮膚與動態物理渲染，重塑頂級奢華的視覺體驗。</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. Investment & Business Models Section -->
+    <section id="business" class="py-24 bg-cyber-dark relative">
+        <!-- Neon decorative grids -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-cyber-purple/10 blur-3xl rounded-full"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-cyber-blue/10 blur-3xl rounded-full"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs md:text-sm text-cyber-blue uppercase font-bold tracking-widest mb-3 font-['Orbitron']">Partnership Tiers</h2>
+                <p class="text-3xl md:text-5xl font-extrabold text-white">2026 招商合作夥伴方案</p>
+                <p class="text-gray-400 mt-4">我們正在尋找唱片公司、創作者加盟及策略投資人，共同瓜分百億級的短影音、音樂影片新藍海市場。</p>
+            </div>
+
+            <!-- Pricing/Tiers Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Tier 1 -->
+                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between border-white/5 hover:border-cyber-blue/30 transition-all duration-300">
+                    <div>
+                        <div class="text-cyber-blue font-bold tracking-wider font-['Orbitron'] uppercase text-xs mb-2">Tier 01</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">品牌行銷定製加盟</h3>
+                        <p class="text-gray-400 text-sm mb-6">適合有常態性 MV、PV 與短影音需求的音樂廠牌或企業品牌。</p>
+                        
+                        <div class="border-t border-b border-white/10 py-6 mb-6">
+                            <span class="text-gray-400 text-sm block">年度合作預存金</span>
+                            <div class="flex items-baseline mt-1">
+                                <span class="text-cyber-blue font-bold text-3xl font-['Orbitron']">NT$ 198,000</span>
+                                <span class="text-gray-400 text-xs ml-2">起 / 年</span>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-4 text-sm text-gray-300">
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-circle-check text-cyber-blue"></i>
+                                <span>享年度優先排單（急件3天內出片）</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-circle-check text-cyber-blue"></i>
+                                <span>尊享客製化專屬 AI 模型微調</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-circle-check text-cyber-blue"></i>
+                                <span>全年度共計 5 支頂級完整 MV 製作</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="mt-8 block w-full py-3 text-center rounded-xl border border-cyber-blue/50 text-cyber-blue hover:bg-cyber-blue hover:text-black transition duration-300 font-bold">申請加盟</a>
+                </div>
+
+                <!-- Tier 2 (Highlighted) -->
+                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between border-cyber-magenta/50 shadow-neon-magenta relative transform lg:-translate-y-4 scale-105 z-20">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-cyber-magenta text-black text-xs font-black tracking-widest uppercase">
+                        Most Popular • 熱門加盟
+                    </div>
+                    <div>
+                        <div class="text-cyber-magenta font-bold tracking-wider font-['Orbitron'] uppercase text-xs mb-2 mt-2">Tier 02</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">策略股權 & 版權投資</h3>
+                        <p class="text-gray-400 text-sm mb-6">適合尋求長期回報、共同孵化原創 AI 音樂虛擬 IP 巨星的策略天使投資人。</p>
+                        
+                        <div class="border-t border-b border-white/10 py-6 mb-6">
+                            <span class="text-gray-400 text-sm block">策略融資額度</span>
+                            <div class="flex items-baseline mt-1">
+                                <span class="text-cyber-magenta font-bold text-3xl font-['Orbitron']">NT$ 980,000</span>
+                                <span class="text-gray-400 text-xs ml-2">起 / 限額5席</span>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-4 text-sm text-gray-300">
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-circle-check text-cyber-magenta"></i>
+                                <span>享有孵化 IP 所有原創 MV 版權分潤 20%</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-circle-check text-cyber-magenta"></i>
+                                <span>VividSynth AI 技術授權與軟體終身使用權</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-circle-check text-cyber-magenta"></i>
+                                <span>每季度股東分紅與優先技術解鎖權</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="mt-8 block w-full py-3.5 text-center rounded-xl bg-gradient-to-r from-cyber-blue to-cyber-magenta text-black font-black hover:opacity-90 shadow-neon-blue transition duration-300">立即洽商席位</a>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="glass-panel rounded-3xl p-8 flex flex-col justify-between border-white/5 hover:border-cyber-purple/30 transition-all duration-300">
+                    <div>
+                        <div class="text-cyber-purple font-bold tracking-wider font-['Orbitron'] uppercase text-xs mb-2">Tier 03</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">聯名創作者共享計畫</h3>
+                        <p class="text-gray-400 text-sm mb-6">專為獨立音樂人、樂團、導演、後期特效團隊設計的共生模式。</p>
+                        
+                        <div class="border-t border-b border-white/10 py-6 mb-6">
+                            <span class="text-gray-400 text-sm block">首期啟動保證金</span>
+                            <div class="flex items-baseline mt-1">
+                                <span class="text-cyber-purple font-bold text-3xl font-['Orbitron']">NT$ 50,000</span>
+                                <span class="text-gray-400 text-xs ml-2">（完成首支 MV 後全額退還）</span>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-4 text-sm text-gray-300">
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-circle-check text-cyber-purple"></i>
+                                <span>1對1 AI 影片製片顧問專屬支援</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-circle-check text-cyber-purple"></i>
+                                <span>免費獲得首支主打曲之 AI MV 製作支援</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fa-solid fa-circle-check text-cyber-purple"></i>
+                                <span>共享 VividSynth 創作渠道宣發曝光資源</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="mt-8 block w-full py-3 text-center rounded-xl border border-cyber-purple/50 text-cyber-purple hover:bg-cyber-purple hover:text-black transition duration-300 font-bold">申請聯名</a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 6. Interactive ROI Calculator Section -->
+    <section id="calculator" class="py-24 bg-black relative">
+        <div class="max-w-5xl mx-auto px-6">
+            
+            <div class="glass-panel rounded-3xl p-8 md:p-12 relative overflow-hidden border border-cyber-blue/20">
+                <div class="absolute -right-32 -bottom-32 w-80 h-80 bg-cyber-blue/10 rounded-full blur-3xl"></div>
+                
+                <div class="text-center md:text-left mb-10">
+                    <span class="text-cyber-blue font-bold uppercase tracking-widest text-xs font-['Orbitron']">ROI Estimator</span>
+                    <h3 class="text-3xl font-extrabold text-white mt-2">即時投資效益估算</h3>
+                    <p class="text-gray-400 text-sm mt-1">拉動拉桿，直觀比對「傳統實拍」與「VividSynth AI 製作」的驚人落差</p>
+                </div>
+
+                <!-- Calculator Container -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    
+                    <!-- Controls Area -->
+                    <div class="space-y-8">
+                        <!-- Input 1: Duration -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-gray-300 font-semibold text-sm">預期 MV 規格長度 (分鐘)</label>
+                                <span id="durationVal" class="text-cyber-blue font-bold font-['Orbitron']">3 分鐘</span>
+                            </div>
+                            <input type="range" id="durationSlider" min="1" max="10" value="3" step="1" oninput="calculateROI()" class="w-full accent-cyber-blue bg-cyber-dark rounded-lg appearance-none h-2 cursor-pointer">
+                        </div>
+
+                        <!-- Input 2: Complexity -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-gray-300 font-semibold text-sm">畫面繁雜度與視覺特效層級</label>
+                                <span id="complexityVal" class="text-cyber-magenta font-bold">極高 (太空/奇幻奇觀)</span>
+                            </div>
+                            <input type="range" id="complexitySlider" min="1" max="3" value="3" step="1" oninput="calculateROI()" class="w-full accent-cyber-magenta bg-cyber-dark rounded-lg appearance-none h-2 cursor-pointer">
+                        </div>
+
+                        <!-- Input 3: Quantity -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-gray-300 font-semibold text-sm">年產量需求 (支/年)</label>
+                                <span id="quantityVal" class="text-cyber-purple font-bold font-['Orbitron']">5 支</span>
+                            </div>
+                            <input type="range" id="quantitySlider" min="1" max="12" value="5" step="1" oninput="calculateROI()" class="w-full accent-cyber-purple bg-cyber-dark rounded-lg appearance-none h-2 cursor-pointer">
+                        </div>
+                    </div>
+
+                    <!-- Output Results Area -->
+                    <div class="bg-cyber-dark/80 rounded-2xl p-6 border border-white/5 flex flex-col justify-between">
+                        
+                        <div class="space-y-6">
+                            <!-- Traditional Cost -->
+                            <div>
+                                <span class="text-gray-400 text-xs block">傳統影棚與外景實拍成本 (估計)</span>
+                                <div class="flex items-baseline space-x-1 text-gray-500 line-through">
+                                    <span class="text-xs">NT$</span>
+                                    <span id="tradCost" class="text-2xl font-bold font-['Orbitron']">1,500,000</span>
+                                </div>
+                            </div>
+
+                            <!-- AI Cost -->
+                            <div>
+                                <span class="text-cyber-blue text-xs block font-bold">VividSynth AI 製作成本 (節省達 90%)</span>
+                                <div class="flex items-baseline space-x-1 text-cyber-blue">
+                                    <span class="text-sm font-semibold">NT$</span>
+                                    <span id="aiCost" class="text-4xl font-extrabold font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-cyber-blue to-cyber-purple">150,000</span>
+                                </div>
+                            </div>
+
+                            <!-- Time Saved -->
+                            <div>
+                                <span class="text-cyber-magenta text-xs block font-bold">為您縮短製作工作天數</span>
+                                <div class="flex items-center mt-1 text-cyber-magenta">
+                                    <i class="fa-regular fa-clock mr-2"></i>
+                                    <span class="text-lg font-bold">縮減至少 <span id="timeSaved" class="font-['Orbitron']">45</span> 天</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 pt-4 border-t border-white/5">
+                            <p class="text-xs text-gray-400 text-center">※ 以上估計依據 2026 年影視行業平均預算。實際價格將因專屬模型微調複雜度略有調整。</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. FAQ Section -->
+    <section class="py-24 bg-cyber-dark">
+        <div class="max-w-4xl mx-auto px-6">
+            
+            <div class="text-center mb-16">
+                <h2 class="text-xs md:text-sm text-cyber-blue uppercase font-bold tracking-widest mb-3 font-['Orbitron']">F.A.Q</h2>
+                <p class="text-3xl md:text-4xl font-extrabold text-white">常見問題解答</p>
+                <div class="w-16 h-1 bg-cyber-blue mx-auto mt-4"></div>
+            </div>
+
+            <div class="space-y-6">
+                
+                <!-- FAQ Item 1 -->
+                <div class="glass-panel rounded-2xl p-6 cursor-pointer group" onclick="toggleFaq(1)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-lg font-bold text-white group-hover:text-cyber-blue transition">1. AI 製作的 MV 有版權爭議嗎？</h4>
+                        <i id="faqIcon-1" class="fa-solid fa-chevron-down text-gray-400 group-hover:text-cyber-blue transition"></i>
+                    </div>
+                    <p id="faqAnswer-1" class="hidden text-gray-400 text-sm mt-4 leading-relaxed">
+                        我們使用的 AI 生成系統經過嚴格的版權過濾，並且我們也與合法商業圖庫合作，提供專屬的藝術風格微調模型。所有產出的 MV 影片成品版權將完全移交予客戶（包括商業發行權與改作權），保障您的權益不受侵害。
+                    </p>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="glass-panel rounded-2xl p-6 cursor-pointer group" onclick="toggleFaq(2)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-lg font-bold text-white group-hover:text-cyber-blue transition">2. 如果不滿意 AI 生成的畫面，該如何修改？</h4>
+                        <i id="faqIcon-2" class="fa-solid fa-chevron-down text-gray-400 group-hover:text-cyber-blue transition"></i>
+                    </div>
+                    <p id="faqAnswer-2" class="hidden text-gray-400 text-sm mt-4 leading-relaxed">
+                        我們採用「混合式（Hybrid）工作流」。在初稿確認期，我們會先提供 AI 概念畫布（Styleframes）進行定案；進入影片製作後，我們會利用分鏡工具做幀級修改。每個專案合約皆包含 2-3 次細節調整額度，確保最完美的品質呈現。
+                    </p>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="glass-panel rounded-2xl p-6 cursor-pointer group" onclick="toggleFaq(3)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-lg font-bold text-white group-hover:text-cyber-blue transition">3. 合作後大約需要多久能拿到首支成品？</h4>
+                        <i id="faqIcon-3" class="fa-solid fa-chevron-down text-gray-400 group-hover:text-cyber-blue transition"></i>
+                    </div>
+                    <p id="faqAnswer-3" class="hidden text-gray-400 text-sm mt-4 leading-relaxed">
+                        自合約生效、素材與音樂對軌檔案確認後，常規排單期可在 7 個工作天內完成初對。若申請為「品牌定製特約夥伴（Tier 01）」，則享有高優先級，最快 3 天內可完成初版交付。
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 8. Premium Contact/Inquiry Form Section -->
+    <section id="contact" class="py-24 bg-gradient-to-t from-black to-cyber-dark relative">
+        <div class="max-w-3xl mx-auto px-6 relative z-10">
+            
+            <div class="glass-panel rounded-3xl p-8 md:p-12 border border-cyber-magenta/20 shadow-neon-purple">
+                <div class="text-center mb-10">
+                    <span class="text-cyber-magenta font-bold uppercase tracking-widest text-xs font-['Orbitron']">Contact & Inquiry</span>
+                    <h3 class="text-3xl md:text-4xl font-black text-white mt-2">啟動您的 AI 影像計畫</h3>
+                    <p class="text-gray-400 text-sm mt-2">填寫以下簡要意向書，我們的招商總監將在 24 小時內親自與您聯繫。</p>
+                </div>
+
+                <form id="inquiryForm" action="https://docs.google.com/forms/d/e/1FAIpQLSd8l_GUyTY25Qd-Gfq3LNbx1ude9-LnBcm_7Z2lA8eZj6nu4w/formResponse" target="hiddenFormFrame" method="POST" accept-charset="UTF-8" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Name -->
+                        <div>
+                            <label class="block text-gray-300 text-sm font-semibold mb-2">貴司名稱 / 聯絡人姓名 *</label>
+                            <input type="text" id="formName" name="entry.588998168" required class="w-full bg-cyber-dark/80 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyber-blue transition duration-300" placeholder="例如：幻境音樂廠牌 / 林先生">
+                        </div>
+                        <!-- Phone/WeChat -->
+                        <div>
+                            <label class="block text-gray-300 text-sm font-semibold mb-2">聯絡電話 / LINE 或 微信 ID *</label>
+                            <input type="text" id="formContact" required class="w-full bg-cyber-dark/80 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyber-blue transition duration-300" placeholder="方便我們即時與您回覆">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-gray-300 text-sm font-semibold mb-2">電子信箱 *</label>
+                            <input type="email" id="formEmail" name="entry.476214014" required class="w-full bg-cyber-dark/80 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyber-blue transition duration-300" placeholder="contact@company.com">
+                        </div>
+                        <!-- Tier Select -->
+                        <div>
+                            <label class="block text-gray-300 text-sm font-semibold mb-2">感興趣的招商方案</label>
+                            <select id="formTier" name="entry.1610329698" class="w-full bg-cyber-dark/80 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyber-blue transition duration-300">
+                                <option value="Tier 01 - 品牌行銷定製加盟 (NT$ 198k/年)">Tier 01 - 品牌行銷定製加盟 (NT$ 198k/年)</option>
+                                <option value="Tier 02 - 策略股權 & 版權投資 (NT$ 980k起)" selected>Tier 02 - 策略股權 & 版權投資 (NT$ 980k起)</option>
+                                <option value="Tier 03 - 聯名創作者共享計畫">Tier 03 - 聯名創作者共享計畫</option>
+                                <option value="其他商務合作/特殊需求定製">其他商務合作/特殊需求定製</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Message -->
+                    <div>
+                        <label class="block text-gray-300 text-sm font-semibold mb-2">您的音樂理念或專案備註說明</label>
+                        <textarea id="formMessage" name="entry.1646642689" rows="4" class="w-full bg-cyber-dark/80 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyber-blue transition duration-300" placeholder="告訴我們您想要創作的音樂風格，或是針對投資計畫的想法..."></textarea>
+                    </div>
+
+                    <!-- Privacy -->
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" id="privacyCheck" required class="mt-1 accent-cyber-blue">
+                        <label for="privacyCheck" class="text-xs text-gray-400 leading-relaxed">
+                            我同意 VividSynth AI 影音工作室根據隱私權保護政策處理我的個人資訊，並理解該提案僅供商業意向與預約評估使用。
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button id="submitButton" type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyber-blue via-cyber-purple to-cyber-magenta text-black font-black text-lg tracking-wider hover:shadow-neon-blue transition duration-300 flex items-center justify-center space-x-2">
+                        <span>遞交意向申請書</span>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+
+                </form>
+                <iframe name="hiddenFormFrame" id="hiddenFormFrame" class="hidden" aria-hidden="true"></iframe>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 9. Custom Modals (No alerts used) -->
+    <!-- Success Modal -->
+    <div id="successModal" class="hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-6">
+        <div class="glass-panel max-w-md w-full rounded-3xl p-8 border border-cyber-blue shadow-neon-blue text-center relative overflow-hidden">
+            <div class="absolute -right-16 -top-16 w-32 h-32 bg-cyber-blue/10 rounded-full blur-2xl"></div>
+            
+            <div class="w-20 h-20 bg-gradient-to-tr from-cyber-blue to-cyber-purple rounded-full flex items-center justify-center text-black text-4xl mx-auto mb-6 shadow-neon-blue">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            
+            <h4 class="text-2xl font-bold text-white mb-2 font-['Orbitron']">需求已送出</h4>
+            <p class="text-cyber-blue font-semibold text-sm mb-4">我們將盡快與您聯絡！</p>
+            
+            <p class="text-gray-300 text-sm leading-relaxed mb-8">
+                感謝您對 VividSynth AI 影音計畫的信任。表單已匿名送出，請保持電話與信箱暢通，我們的團隊會在 24 小時內主動回覆。
+            </p>
+            
+            <button onclick="closeSuccessModal()" class="w-full py-3 rounded-xl bg-cyber-blue text-black font-extrabold hover:opacity-90 transition">
+                關閉並返回官網
+            </button>
+        </div>
+    </div>
+
+    <!-- 9. Portfolio Showcase Section -->
+    <section id="portfolio" class="py-24 bg-slate-950 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-xs md:text-sm text-cyber-blue uppercase font-bold tracking-widest mb-3 font-['Orbitron']">Portfolio Showcase</span>
+                <p class="text-3xl md:text-4xl font-extrabold text-white">純影像作品展示 — AI Shorts</p>
+                <div class="w-20 h-1 bg-gradient-to-r from-cyber-blue to-cyber-magenta mx-auto mt-4"></div>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">以下作品僅提供影像預覽，採用靜音自動播放與循環播放的 Shorts 風格展示，無社交按鈕干擾。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-panel rounded-3xl overflow-hidden bg-black border border-white/10 shadow-neon-blue">
+                    <div class="relative overflow-hidden" style="padding-top:177.78%;">
+                        <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/h7hM5BlOcMY?autoplay=1&mute=1&loop=1&playlist=h7hM5BlOcMY&controls=0&modestbranding=1&rel=0&playsinline=1" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-5 text-center bg-slate-950">
+                        <h3 class="text-lg font-bold text-white">VOBO 皮鞋</h3>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-3xl overflow-hidden bg-black border border-white/10 shadow-neon-magenta">
+                    <div class="relative overflow-hidden" style="padding-top:177.78%;">
+                        <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/bcFnNsTVntk?autoplay=1&mute=1&loop=1&playlist=bcFnNsTVntk&controls=0&modestbranding=1&rel=0&playsinline=1" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-5 text-center bg-slate-950">
+                        <h3 class="text-lg font-bold text-white">SHARK 鯊克防水鞋</h3>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-3xl overflow-hidden bg-black border border-white/10 shadow-neon-purple">
+                    <div class="relative overflow-hidden" style="padding-top:177.78%;">
+                        <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/n9VTjZdNvEQ?autoplay=1&mute=1&loop=1&playlist=n9VTjZdNvEQ&controls=0&modestbranding=1&rel=0&playsinline=1" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-5 text-center bg-slate-950">
+                        <h3 class="text-lg font-bold text-white">黑武士鞋</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Footer -->
+    <footer class="bg-black py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                
+                <!-- Col 1 -->
+                <div class="space-y-4">
+                    <a href="#" class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded bg-gradient-to-tr from-cyber-blue to-cyber-magenta flex items-center justify-center text-black text-sm">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <span class="font-bold text-lg text-white font-['Orbitron']">VIVIDSYNTH</span>
+                    </a>
+                    <p class="text-xs text-gray-500 leading-relaxed">
+                        幻境影音 AI 工作室。引領下一代音樂錄影帶技術與元宇宙 IP 生態鏈的跨時代視覺先鋒。
+                    </p>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h5 class="text-white font-bold text-sm mb-4 tracking-widest font-['Orbitron']">STUDIO INFO</h5>
+                    <ul class="space-y-2.5 text-xs text-gray-500">
+                        <li>工作室地址：台北市信義區忠孝東路五段未來大樓 101 室</li>
+                        <li>聯絡信箱：pitch@vividsynth.ai</li>
+                        <li>商務專線：(02) 2765-XXXX (代表號)</li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h5 class="text-white font-bold text-sm mb-4 tracking-widest font-['Orbitron']">CATEGORIES</h5>
+                    <ul class="space-y-2 text-xs text-gray-500">
+                        <li><a href="#highlights" class="hover:text-cyber-blue transition">AI 核心優勢</a></li>
+                        <li><a href="#styles" class="hover:text-cyber-blue transition">視覺风格畫廊</a></li>
+                        <li><a href="#business" class="hover:text-cyber-blue transition">2026 招商手冊</a></li>
+                        <li><a href="#calculator" class="hover:text-cyber-blue transition">投資回報分析</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div>
+                    <h5 class="text-white font-bold text-sm mb-4 tracking-widest font-['Orbitron']">FOLLOW US</h5>
+                    <div class="flex space-x-3 mb-4">
+                        <a href="https://youtu.be/LwLXRVJvMN0" target="_blank" class="w-8 h-8 rounded-full bg-white/5 hover:bg-red-600 hover:text-white flex items-center justify-center text-gray-400 transition" title="YouTube">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-gradient-to-tr hover:from-purple-600 hover:to-pink-500 hover:text-white flex items-center justify-center text-gray-400 transition" title="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-blue-600 hover:text-white flex items-center justify-center text-gray-400 transition" title="Facebook">
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+                    </div>
+                    <p class="text-[10px] text-gray-600">※ 本站所包含之 AI 生成作品部分源自 VividSynth 自研神經網絡模型。</p>
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-600">
+                <p>&copy; 2026 VividSynth AI Studio. All rights reserved. 幻境影音有限公司版權所有</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-gray-400 transition">服務條款</a>
+                    <a href="#" class="hover:text-gray-400 transition">隱私權政策</a>
+                    <a href="#" class="hover:text-gray-400 transition">智慧財產保護聲明</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- YouTube IFrame Player API Integration -->
+    <script>
+        // Load the Iframe Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var isMuted = true;
+
+        // This function creates an <iframe> (and YouTube player) after the API code downloads.
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtubePlayer', {
+                videoId: 'LwLXRVJvMN0', // The video requested by the user
+                playerVars: {
+                    'autoplay': 1,
+                    'mute': 1,
+                    'loop': 1,
+                    'playlist': 'LwLXRVJvMN0', // Required for looping in YouTube Player API
+                    'controls': 0,
+                    'showinfo': 0,
+                    'rel': 0,
+                    'enablejsapi': 1,
+                    'playsinline': 1,
+                    'iv_load_policy': 3,
+                    'disablekb': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Mute and play video
+            event.target.mute();
+            event.target.playVideo();
+            
+            // Hide custom placeholder overlay after video starts to load/buffer
+            setTimeout(function() {
+                const placeholder = document.getElementById('videoPlaceholder');
+                if (placeholder) {
+                    placeholder.classList.add('opacity-0');
+                    setTimeout(() => placeholder.style.display = 'none', 1000);
+                }
+            }, 1200);
+        }
+
+        // Keep loop consistent
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+                player.playVideo();
+            }
+        }
+
+        // Toggle Audio logic
+        function toggleMute() {
+            if (!player) return;
+            const soundIcon = document.getElementById('soundIcon');
+            const soundBtn = document.getElementById('soundToggleBtn');
+
+            if (isMuted) {
+                player.unMute();
+                player.setVolume(80); // Set volume comfortable level
+                isMuted = false;
+                soundIcon.className = "fa-solid fa-volume-high";
+                soundBtn.classList.remove('text-cyber-blue', 'border-cyber-blue');
+                soundBtn.classList.add('text-cyber-magenta', 'border-cyber-magenta', 'shadow-neon-magenta');
+            } else {
+                player.mute();
+                isMuted = true;
+                soundIcon.className = "fa-solid fa-volume-xmark";
+                soundBtn.classList.remove('text-cyber-magenta', 'border-cyber-magenta', 'shadow-neon-magenta');
+                soundBtn.classList.add('text-cyber-blue', 'border-cyber-blue');
+            }
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.className = "fa-solid fa-xmark text-cyber-blue";
+            } else {
+                menu.classList.add('hidden');
+                icon.className = "fa-solid fa-bars";
+            }
+        }
+
+        // FAQ Interactive accordion
+        function toggleFaq(id) {
+            const answer = document.getElementById(`faqAnswer-${id}`);
+            const icon = document.getElementById(`faqIcon-${id}`);
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                icon.className = "fa-solid fa-chevron-up text-cyber-blue transition";
+            } else {
+                answer.classList.add('hidden');
+                icon.className = "fa-solid fa-chevron-down text-gray-400 transition";
+            }
+        }
+
+        // Interactive ROI Calculator Logic
+        function calculateROI() {
+            const duration = parseInt(document.getElementById('durationSlider').value);
+            const complexity = parseInt(document.getElementById('complexitySlider').value);
+            const quantity = parseInt(document.getElementById('quantitySlider').value);
+
+            // Update sliders display text
+            document.getElementById('durationVal').innerText = `${duration} 分鐘`;
+            
+            let complexityText = "中等 (簡約美學)";
+            let multiplier = 1.0;
+            if (complexity === 2) {
+                complexityText = "高級 (影視級合成)";
+                multiplier = 1.5;
+            } else if (complexity === 3) {
+                complexityText = "極高 (太空/奇幻奇觀)";
+                multiplier = 2.3;
+            }
+            document.getElementById('complexityVal').innerText = complexityText;
+            document.getElementById('quantityVal').innerText = `${quantity} 支`;
+
+            // Calculate Base Prices (Traditional vs AI)
+            // e.g. Base Traditional: NT$300k per minute. Base AI: NT$30k per minute
+            const baseTradCost = 350000;
+            const baseAiCost = 35000;
+
+            const totalTrad = Math.round(duration * baseTradCost * multiplier * quantity);
+            const totalAi = Math.round(duration * baseAiCost * multiplier * quantity);
+            const daysSaved = Math.round(quantity * (15 * duration)); // 15 days saved per minute
+
+            // Format numbers with commas
+            document.getElementById('tradCost').innerText = totalTrad.toLocaleString('zh-TW');
+            document.getElementById('aiCost').innerText = totalAi.toLocaleString('zh-TW');
+            document.getElementById('timeSaved').innerText = daysSaved;
+        }
+
+        // Form Submit Handler (No browser alert)
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = document.getElementById('inquiryForm');
+            const name = document.getElementById('formName').value.trim();
+            const contact = document.getElementById('formContact').value.trim();
+            const email = document.getElementById('formEmail').value.trim();
+            const messageField = document.getElementById('formMessage');
+            const submitButton = document.getElementById('submitButton');
+
+            if (!name || !contact || !email) {
+                return;
+            }
+
+            // Append contact info into the Google Form message field before submission
+            const originalMessage = messageField.value.trim();
+            messageField.value = `聯絡方式：${contact}\n\n${originalMessage}`;
+
+            // Submit into hidden iframe so the page does not redirect away
+            submitButton.disabled = true;
+            window.formResponseShown = false;
+            const hiddenFrame = document.getElementById('hiddenFormFrame');
+            hiddenFrame.onload = function() {
+                if (!window.formResponseShown) {
+                    window.formResponseShown = true;
+                    document.getElementById('successModal').classList.remove('hidden');
+                    submitButton.disabled = false;
+                    form.reset();
+                }
+            };
+            form.submit();
+
+            // Fallback in case iframe load event is blocked or delayed
+            setTimeout(() => {
+                if (!window.formResponseShown) {
+                    window.formResponseShown = true;
+                    document.getElementById('successModal').classList.remove('hidden');
+                    submitButton.disabled = false;
+                    form.reset();
+                }
+            }, 1500);
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.add('hidden');
+            document.getElementById('inquiryForm').reset();
+            // Scroll back to top gracefully
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Run calculator on initial load to output accurate initial figures
+        window.onload = function() {
+            calculateROI();
+        }
+    </script>
+</body>
+</html>
